@@ -1,0 +1,29 @@
+{
+  "name": "persona-5-clock-face",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@fitbit/sdk": "~4.1.0",
+    "@fitbit/sdk-cli": "^1.7.2"
+  },
+  "fitbit": {
+    "appUUID": "41e3f23c-78ad-4e29-a895-02f18b6bab6a",
+    "appType": "clockface",
+    "appDisplayName": "Persona 5 Clock Face",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#ffffff",
+    "requestedPermissions": [],
+    "buildTargets": [
+      "meson",
+      "gemini",
+      "mira"
+    ],
+    "i18n": {},
+    "defaultLanguage": "en-US"
+  },
+  "scripts": {
+    "build": "fitbit-build",
+    "debug": "fitbit"
+  }
+}
