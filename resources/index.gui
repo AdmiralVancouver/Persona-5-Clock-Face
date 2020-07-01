@@ -1,3 +1,7 @@
-<svg>
-  <rect id="background" />
+<svg class="screen">
+  <svg class="container">
+    <image id="background" href="background/night_bg_300x300.png"/>
+      <image id="heart_rate_icon" href="icons/heart_icon.png"/>
+      <image class="heartrate_num" id="digit_1" href="hr_nums/1_hr.png"/>
+  </svg>
 </svg>
