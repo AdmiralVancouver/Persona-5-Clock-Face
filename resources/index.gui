@@ -1,7 +1,9 @@
 <svg class="screen">
   <svg class="container">
     <image id="background" href="background/night_bg_300x300.png"/>
-      <image id="heart_rate_icon" href="icons/heart_icon.png"/>
-      <image class="heartrate_num" id="digit_1" href="hr_nums/1_hr.png"/>
+    <image id="heartrate_icon" href="icons/heart_icon.png"/>
+    <text id="heartrate_num">---</text>
+    <image id="steps_icon" href="icons/steps_icon.png"/>
+    <text id="steps_num">-----</text>
   </svg>
 </svg>
