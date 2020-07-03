@@ -41,8 +41,19 @@
 
 #day_num {
   y: 500;
+  visibility: hidden;
 }
 
 #day_of_week {
   y: 0;
+}
+
+#hour_num {
+  y: 500;
+  x: 165;
+}
+
+#minute_num {
+  y: 500;
+  x: $+10;
 }

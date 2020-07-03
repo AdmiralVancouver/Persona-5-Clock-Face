@@ -12,18 +12,20 @@
       <image id="steps_icon" href="icons/steps_icon.png"/>
     </svg>
 
-    <svg class="date_class">
-      <g transform="scale(0.5)">
+    <g transform="scale(0.25)">
+      <svg class="date_class">
         <image id="day_of_week"/>
-      </g>
-      <g transform="scale(0.25)">
         <image id="month_num"/>
-      </g>
-      <g transform="scale(0.25)">
         <image id="day_num"/>
-      </g>
+      </svg>
+    </g>
 
-    </svg>
+    <g transform="scale(0.33)">
+      <svg class="time_class">
+        <image id="hour_num"/>
+        <image id="minute_num" width="85%" height="85%"/>
+      </svg>
+    </g>
 
   </svg>
 </svg>

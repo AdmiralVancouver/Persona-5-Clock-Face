@@ -11,6 +11,8 @@ const stepsData = document.getElementById("steps_num");
 const day_of_week = document.getElementById("day_of_week");
 const month_num = document.getElementById("month_num");
 const day_num = document.getElementById("day_num");
+const hour_num = document.getElementById("hour_num");
+const minute_num = document.getElementById("minute_num");
 const sensors = [];
 const days = [
   "sunday",
@@ -69,6 +71,8 @@ clock.ontick = (evt) => {
   setDayText(d.getDay());
   setMonth(d.getMonth());
   setDayNum(d.getDate());
+  setHour(d.getHours());
+  setMinute(d.getMinutes());
 };
 
 function setDayText(day) {
@@ -87,3 +91,11 @@ function setDayNum(num) {
   day_num.image = `day_number/${num}.png`;
 }
 
+function setHour(hour) {
+  hour_num.image = `hour_num/${hour}_hour.png`;
+}
+
+function setMinute(minute) {
+  minute_num.image = `minute_num/${minute}_minute.png`;
+  
+}
