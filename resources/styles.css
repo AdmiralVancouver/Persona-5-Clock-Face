@@ -1,43 +1,48 @@
-.defaultText {
-  font-size: 32;
-  font-family: System-Regular;
-  font-weight: regular;
-  text-length: 32;
-}
-
 #background {
   width: 100%;
   height: 100%;
 }
 
 #heartrate_icon {
-  x: 187;
+  x: $-50;
   y: 5;
-  width: 50;
-  height: 48;
+  width: 45;
+  height: 43;
 }
 
 #heartrate_num {
   fill: #0fe795;
   font-family: Fabrikat-Bold;
   font-size: 34;
-  x: 244;
+  x: 295;
   y: 34;
-  text-anchor: start;
+  text-anchor: end;
 }
 
-#steps_icon{
-  x: 160;
-  y: 50;
-  width: 34;
-  height: 58;
+#steps_icon {
+  x: $-38;
+  y: 55;
+  width: 32;
+  height: 55;
 }
 
-#steps_num{
+#steps_num {
   fill: #ff63ff;
   font-family: Fabrikat-Bold;
   font-size: 34;
-  x: 200;
-  y: 95;
-  text-anchor: start;
+  x: 295;
+  y: 100;
+  text-anchor: end;
+}
+
+#month_num {
+  y: 200;
+}
+
+#day_num {
+  y: 500;
+}
+
+#day_of_week {
+  y: 0;
 }
