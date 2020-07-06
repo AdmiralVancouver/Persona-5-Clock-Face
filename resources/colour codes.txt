@@ -1,0 +1,9 @@
+day sky: bbe5ff
+night sky: 13151d
+
+heart rate: 0fe795
+darker heart rate: 0dd589
+
+steps: ff63ff
+
+red outline: ff1001

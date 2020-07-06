@@ -5,6 +5,7 @@ import { HeartRateSensor } from "heart-rate";
 import { BodyPresenceSensor } from "body-presence";
 import { me as appbit } from "appbit";
 import { today } from "user-activity";
+import { preferences } from "user-settings";
 
 const hrmData = document.getElementById("heartrate_num");
 const stepsData = document.getElementById("steps_num");
@@ -65,22 +66,29 @@ display.addEventListener("change", () => {
 });
 
 clock.ontick = (evt) => {
-  let d = evt.date;
+  /*
+  let today = evt.date;
 
-  //console.log(d.getDay());
-  setDayText(d.getDay());
-  setMonth(d.getMonth());
-  setDayNum(d.getDate());
-  setHour(d.getHours());
-  setMinute(d.getMinutes());
+  setDayText(today.getDay());
+  setMonth(today.getMonth());
+  setDayNum(today.getDate());
+
+  let hours = today.getHours();
+  if (preferences.clockDisplay === "12h") {
+    // 12h format
+    hours = hours % 12 || 12;
+  }
+
+  setHour(hours);
+  setMinute(today.getMinutes());
+  resizeTime(hours);
+  */
+
+  randomDate();
 };
 
 function setDayText(day) {
   day_of_week.image = `day_text/${days[day]}.png`;
-  if (day == 5) {
-    day_of_week.width = 174;
-    day_of_week.height = 81;
-  }
 }
 
 function setMonth(month) {
@@ -97,5 +105,27 @@ function setHour(hour) {
 
 function setMinute(minute) {
   minute_num.image = `minute_num/${minute}_minute.png`;
-  
+}
+
+function resizeTime(hour) {
+  if (hour >= 1 && hour <= 9) {
+    hour_num.width = 175;
+    hour_num.height = 192;
+    hour_num.x = 75;
+  } else {
+    hour_num.width = 240;
+    hour_num.height = 216;
+    hour_num.x = 45;
+  }
+}
+
+// tester function
+function randomDate() {
+  setDayText(Math.floor(Math.random() * 7));
+  setMonth(Math.floor(Math.random() * 12));
+  setDayNum(Math.floor(Math.random() * 30) + 1);
+  let hour = Math.floor(Math.random() * 24);
+  setHour(hour);
+  resizeTime(hour);
+  setMinute(Math.floor(Math.random() * 60));
 }

@@ -11,7 +11,7 @@
 }
 
 #heartrate_num {
-  fill: #0fe795;
+  fill: #0dd589;
   font-family: Fabrikat-Bold;
   font-size: 34;
   x: 295;
@@ -36,24 +36,29 @@
 }
 
 #month_num {
-  y: 200;
+  y: 5;
+  x: 5;
 }
 
 #day_num {
-  y: 500;
-  visibility: hidden;
+  y: $-8;
+  x: 40;
 }
 
 #day_of_week {
-  y: 0;
+  y: 5;
+  x: $-12;
+  width: 115;
+  height: 49;
 }
 
 #hour_num {
-  y: 500;
-  x: 165;
+  y: 275;
 }
 
 #minute_num {
-  y: 500;
+  y: 275;
   x: $+10;
+  width: 60%;
+  height: 60%;
 }

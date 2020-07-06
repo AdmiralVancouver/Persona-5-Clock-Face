@@ -1,10 +1,10 @@
 <svg class="screen">
   <svg class="container">
-    <image id="background" href="background/night_bg_300x300.png"/>
+    <image id="background" href="background/night_bg_300x300-contrast.png"/>
 
     <svg class="heartrate_class">
       <text id="heartrate_num">---</text>
-      <image id="heartrate_icon" href="icons/heart_icon.png"/>
+      <image id="heartrate_icon" href="icons/heart_icon_darker.png"/>
     </svg>
 
     <svg class="steps_class">
@@ -12,18 +12,16 @@
       <image id="steps_icon" href="icons/steps_icon.png"/>
     </svg>
 
-    <g transform="scale(0.25)">
-      <svg class="date_class">
-        <image id="day_of_week"/>
-        <image id="month_num"/>
-        <image id="day_num"/>
-      </svg>
-    </g>
+    <svg class="date_class">
+      <image id="month_num" width="22%" height="22%"/>
+      <image id="day_of_week"/>
+      <image id="day_num" width="18%" height="18%"/>
+    </svg>
 
-    <g transform="scale(0.33)">
+    <g transform="scale(0.58)">
       <svg class="time_class">
         <image id="hour_num"/>
-        <image id="minute_num" width="85%" height="85%"/>
+        <image id="minute_num"/>
       </svg>
     </g>
 
