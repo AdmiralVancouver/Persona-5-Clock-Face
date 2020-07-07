@@ -58,7 +58,7 @@
 
 #minute_num {
   y: 275;
-  x: $+10;
+  x: $;
   width: 60%;
   height: 60%;
 }
