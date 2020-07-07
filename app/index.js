@@ -20,7 +20,7 @@ const day_num = document.getElementById("day_num");
 const hour_num = document.getElementById("hour_num");
 const minute_num = document.getElementById("minute_num");
 const background = document.getElementById("background");
-//const time_period = document.getElementById("time_period");
+
 const sensors = [];
 const days = [
   "sunday",
@@ -31,27 +31,20 @@ const days = [
   "friday",
   "saturday",
 ];
+
 const hrm = new HeartRateSensor();
 
 clock.granularity = "seconds";
 
 let settings = loadSettings();
-console.log("SETTINGS BACKGROUND: " + settings.background);
-//console.log("SETTINGS TIME FORMAT: " + settings.time_format);
-
 applyTheme(settings.background);
 
-
+// Apply new theme on settings change
 messaging.peerSocket.onmessage = function (evt) {
-  //background.image = `evt.data.value`;
-  //console.log(JSON.stringify(evt.data.value.values[0].name));
-  //background_settings = evt.data.value.values[0].name;
-  //background_settings = 
-  //console.log(background_settings);
   applyTheme(evt.data.value.values[0].name);
-  //settings.time_format = evt.data.value.values[0]
 };
 
+// Stop and start heart rate sensor if on body presence
 if (BodyPresenceSensor) {
   const body = new BodyPresenceSensor();
   body.addEventListener("reading", () => {
@@ -65,53 +58,50 @@ if (BodyPresenceSensor) {
   body.start();
 }
 
+// Check if heart rate permissions, then start or stop
 if (HeartRateSensor && appbit.permissions.granted("access_heart_rate")) {
   hrm.addEventListener("reading", () => {
     hrmData.text = hrm.heartRate;
-
-    // REMOVE (FOR TESTING)
-    //stepsData.text = Math.pow(hrm.heartRate, 1);
   });
   sensors.push(hrm);
   hrm.start();
 }
 
+// Add event listener for steps counter
 if (appbit.permissions.granted("access_activity")) {
   clock.addEventListener("tick", () => {
     stepsData.text = today.adjusted.steps || 0;
   });
 }
 
+// Automatically stop all sensors when the screen is off to conserve battery
 display.addEventListener("change", () => {
-  // Automatically stop all sensors when the screen is off to conserve battery
   display.on
     ? sensors.map((sensor) => sensor.start())
     : sensors.map((sensor) => sensor.stop());
 });
 
+// Set proper time images, since not using a traditional font
 clock.ontick = (evt) => {
   let today = evt.date;
 
   setDayText(today.getDay());
   setMonth(today.getMonth());
   setDayNum(today.getDate());
-  //setTimePeriod(today.getHours());
 
   let hours = today.getHours();
   autoBackground(settings.background, hours);
-
   if (preferences.clockDisplay === "12h") {
     // 12h format
     hours = hours % 12 || 12;
   }
-
   setHour(hours);
   setMinute(today.getMinutes());
 
   resizeTime(hours);
 
   // REMOVE FOR TESTING
-  randomDate();
+  //randomDate();
 };
 
 function setDayText(day) {
@@ -134,28 +124,18 @@ function setMinute(minute) {
   minute_num.image = `minute_num/${minute}_minute.png`;
 }
 
+// Check if Auto setting is applied to change background according to time of day
 function autoBackground(isAuto, hour) {
-  //console.log(isAuto);
-  //console.log(hour);
   if (isAuto == "Auto") {
-    //console.log(isAuto);
-
     if (hour >= 7 && hour <= 19) {
-      //console.log(hour);
       background.image = "background/day_bg_300x300-contrast.png";
     } else if ((hour >= 20 && hour <= 23) || (hour >= 0 && hour <= 6)) {
-      //console.log(hour);
       background.image = "background/night_bg_300x300-contrast.png";
     }
   }
 }
 
-/*
-function setTimePeriod(hour) {
-  time_period.image = `time_period/afternoon.png`;
-}
-*/
-
+// Resize and position appropriate time images
 function resizeTime(hour) {
   if (hour >= 1 && hour <= 9) {
     hour_num.width = 175;
@@ -166,6 +146,33 @@ function resizeTime(hour) {
     hour_num.height = 216;
     hour_num.x = 45;
   }
+}
+
+// Register for the unload event
+appbit.onunload = saveSettings;
+
+function loadSettings() {
+  try {
+    return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
+  } catch (ex) {
+    return {
+      background: "Auto",
+    };
+  }
+}
+
+function saveSettings() {
+  fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+}
+
+// Apply appropriate theme according to settings
+function applyTheme(background_settings) {
+  if (background_settings == "Day") {
+    background.image = "background/day_bg_300x300-contrast.png";
+  } else if (background_settings == "Night") {
+    background.image = "background/night_bg_300x300-contrast.png";
+  }
+  settings.background = background_settings;
 }
 
 // tester function
@@ -182,36 +189,4 @@ function randomDate() {
   setHour(hour);
   resizeTime(hour);
   setMinute(Math.floor(Math.random() * 60));
-}
-
-// Register for the unload event
-appbit.onunload = saveSettings;
-
-function loadSettings() {
-  try {
-    //console.log("TRYING");
-    return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
-  } catch (ex) {
-    // Defaults
-    //console.log("CAUGHT");
-    return {
-      background: "Auto",
-      //time_format: "12h"
-    }
-  }
-}
-
-function saveSettings() {
-  fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
-}
-
-function applyTheme(background_settings) {
-  if (background_settings == "Day") {
-    background.image = "background/day_bg_300x300-contrast.png";
-  } else if (background_settings == "Night") {
-    background.image = "background/night_bg_300x300-contrast.png";
-  }
-  settings.background = background_settings;
-
-  console.log("background_settings: " + background_settings);
 }

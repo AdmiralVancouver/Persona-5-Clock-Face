@@ -3,7 +3,6 @@ import { me } from "companion";
 import * as messaging from "messaging";
 
 // Event fires when a setting is changed
-
 settingsStorage.onchange = function (evt) {
   sendValue(evt.key, evt.newValue);
 };
