@@ -1,6 +1,6 @@
 # Persona 5 Clock Face for Fitbit Devices
 
-<img src="https://github.com/kmnthecoder/Persona-5-Clock-Face/blob/master/demo/persona-5-face-demo.gif" width="300" height="300">
+<img src="https://github.com/kmnthecoder/Persona-5-Clock-Face/blob/master/demo/persona-5-face-demo.gif" width="275" height="275">
 
 A clock face based off of the Persona 5 video game.
 
