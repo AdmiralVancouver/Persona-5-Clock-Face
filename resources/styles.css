@@ -16,7 +16,7 @@
 
 #steps_icon {
   x: $-38;
-  y: 55;
+  y: 57;
   width: 32;
   height: 55;
 }
@@ -26,7 +26,7 @@
   font-family: Fabrikat-Bold;
   font-size: 34;
   x: 295;
-  y: 100;
+  y: 102;
   text-anchor: end;
 }
 
@@ -43,8 +43,8 @@
 #day_of_week {
   y: 5;
   x: $-12;
-  width: 115;
-  height: 49;
+  width: 122;
+  height: 52;
 }
 
 #hour_num {

@@ -13,9 +13,9 @@
     </svg>
 
     <svg class="date_class">
-      <image id="month_num" width="22%" height="22%"/>
+      <image id="month_num" width="23%" height="23%"/>
       <image id="day_of_week"/>
-      <image id="day_num" width="18%" height="18%"/>
+      <image id="day_num" width="19%" height="19%"/>
     </svg>
 
     <g transform="scale(0.58)">

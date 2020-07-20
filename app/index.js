@@ -137,13 +137,18 @@ function autoBackground(isAuto, hour) {
 
 // Resize and position appropriate time images
 function resizeTime(hour) {
-  if (hour >= 1 && hour <= 9) {
-    hour_num.width = 175;
-    hour_num.height = 192;
+  if (hour == 7) {
+    hour_num.width = 182;
+    hour_num.height = 200;
+    hour_num.x = 85;
+  }
+  else if (hour >= 1 && hour <= 9) {
+    hour_num.width = 173;
+    hour_num.height = 190;
     hour_num.x = 85;
   } else {
-    hour_num.width = 240;
-    hour_num.height = 216;
+    hour_num.width = 230;
+    hour_num.height = 207;
     hour_num.x = 45;
   }
 }
