@@ -6,6 +6,7 @@ import { BodyPresenceSensor } from "body-presence";
 import { me as appbit } from "appbit";
 import { today } from "user-activity";
 import { preferences } from "user-settings";
+import { me as device } from "device";
 import * as messaging from "messaging";
 import * as fs from "fs";
 
@@ -43,6 +44,12 @@ applyTheme(settings.background);
 messaging.peerSocket.onmessage = function (evt) {
   applyTheme(evt.data.value.values[0].name);
 };
+
+// detect for ionic devices running older firmware
+if (!device.screen) {
+  device.screen = { width: 348, height: 250 };
+}
+//console.log(`Dimensions: ${device.screen.width}x${device.screen.height}`);
 
 // Stop and start heart rate sensor if on body presence
 if (BodyPresenceSensor) {
@@ -135,14 +142,12 @@ function autoBackground(isAuto, hour) {
   }
 }
 
-// Resize and position appropriate time images
-function resizeTime(hour) {
+function resizeTime300x300(hour) {
   if (hour == 7) {
     hour_num.width = 182;
     hour_num.height = 200;
     hour_num.x = 85;
-  }
-  else if (hour >= 1 && hour <= 9) {
+  } else if (hour >= 1 && hour <= 9) {
     hour_num.width = 173;
     hour_num.height = 190;
     hour_num.x = 85;
@@ -150,6 +155,31 @@ function resizeTime(hour) {
     hour_num.width = 230;
     hour_num.height = 207;
     hour_num.x = 45;
+  }
+}
+
+function resizeTime348x250(hour) {
+  if (hour == 7) {
+    hour_num.width = 182;
+    hour_num.height = 200;
+    hour_num.x = 120;
+  } else if (hour >= 1 && hour <= 9) {
+    hour_num.width = 173;
+    hour_num.height = 190;
+    hour_num.x = 120;
+  } else {
+    hour_num.width = 230;
+    hour_num.height = 207;
+    hour_num.x = 80;
+  }
+}
+
+// Resize and position appropriate time images
+function resizeTime(hour) {
+  if (device.screen.width == 348 && device.screen.height == 250) {
+    resizeTime348x250(hour);
+  } else if (device.screen.width == 300 && device.screen.height == 300) {
+    resizeTime300x300(hour);
   }
 }
 

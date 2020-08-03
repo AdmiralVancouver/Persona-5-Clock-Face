@@ -1,0 +1,59 @@
+#heartrate_icon {
+  x: $-50;
+  y: 5;
+  width: 45;
+  height: 43;
+}
+
+#heartrate_num {
+  fill: #0dd589;
+  font-family: Fabrikat-Bold;
+  font-size: 34;
+  x: 343;
+  y: 34;
+  text-anchor: end;
+}
+
+#steps_icon {
+  x: $-38;
+  y: 57;
+  width: 32;
+  height: 55;
+}
+
+#steps_num {
+  fill: #ff63ff;
+  font-family: Fabrikat-Bold;
+  font-size: 34;
+  x: 343;
+  y: 102;
+  text-anchor: end;
+}
+
+#month_num {
+  y: 5;
+  x: 5;
+}
+
+#day_num {
+  y: $-8;
+  x: 40;
+}
+
+#day_of_week {
+  y: 5;
+  x: $-12;
+  width: 122;
+  height: 52;
+}
+
+#hour_num {
+  y: 220;
+}
+
+#minute_num {
+  y: 220;
+  x: $;
+  width: 60%;
+  height: 60%;
+}

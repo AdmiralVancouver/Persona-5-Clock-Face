@@ -20,7 +20,8 @@
     "buildTargets": [
       "meson",
       "gemini",
-      "mira"
+      "mira",
+      "higgs"
     ],
     "i18n": {},
     "defaultLanguage": "en-US"
