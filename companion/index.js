@@ -2,27 +2,46 @@ import { settingsStorage } from "settings";
 import { me } from "companion";
 import * as messaging from "messaging";
 
-// Event fires when a setting is changed
-settingsStorage.onchange = function (evt) {
-  sendValue(evt.key, evt.newValue);
+settingsStorage.onchange = (evt) => {
+  let data = {
+    key: evt.key,
+    newValue: evt.newValue,
+  };
+  sendValue(data);
 };
 
 if (me.launchReasons.settingsChanged) {
-  // Settings were changed while the companion was not running
   sendValue("background", settingsStorage.getItem("background"));
+  sendValue(
+    "heart_icon_display",
+    settingsStorage.getItem("heart_icon_display")
+  );
 }
 
-function sendValue(key, val) {
-  if (val) {
-    sendSettingData({
-      key: key,
-      value: JSON.parse(val),
-    });
+messaging.peerSocket.onopen = () => {
+  restoreSettings();
+};
+
+function restoreSettings() {
+  for (let index = 0; index < settingsStorage.length; index++) {
+    let key = settingsStorage.key(index);
+    if (key) {
+      let data = {
+        key: key,
+        value: settingsStorage.getItem(key),
+      };
+      sendValue(data);
+    }
+  }
+}
+
+function sendValue(data) {
+  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+    messaging.peerSocket.send(data);
   }
 }
 
 function sendSettingData(data) {
-  // If we have a MessageSocket, send the data to the device
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
     messaging.peerSocket.send(data);
   } else {

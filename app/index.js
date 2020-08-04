@@ -7,6 +7,7 @@ import { me as appbit } from "appbit";
 import { today } from "user-activity";
 import { preferences } from "user-settings";
 import { me as device } from "device";
+import { battery } from "power";
 import * as messaging from "messaging";
 import * as fs from "fs";
 
@@ -38,18 +39,48 @@ const hrm = new HeartRateSensor();
 clock.granularity = "seconds";
 
 let settings = loadSettings();
-applyTheme(settings.background);
+
+function loadSettings() {
+  try {
+    return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
+  } catch (ex) {
+    return {
+      background: "Auto",
+      heart_icon_display: "Heart Rate",
+    };
+  }
+}
+
+// Register for the unload event
+appbit.addEventListener("unload", saveSettings);
+function saveSettings() {
+  fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+}
 
 // Apply new theme on settings change
-messaging.peerSocket.onmessage = function (evt) {
-  applyTheme(evt.data.value.values[0].name);
+messaging.peerSocket.onmessage = (evt) => {
+  if (evt.data.newValue) {
+    switch (evt.data.key) {
+      case "background":
+        settings.background = JSON.parse(evt.data.newValue).values[0].name;
+        applyTheme(settings.background);
+        break;
+      case "heart_icon_display":
+        settings.heart_icon_display = JSON.parse(
+          evt.data.newValue
+        ).values[0].name;
+        heartDisplay(settings.heart_icon_display);
+        break;
+    }
+  }
 };
+
+applyTheme(settings.background);
 
 // detect for ionic devices running older firmware
 if (!device.screen) {
   device.screen = { width: 348, height: 250 };
 }
-//console.log(`Dimensions: ${device.screen.width}x${device.screen.height}`);
 
 // Stop and start heart rate sensor if on body presence
 if (BodyPresenceSensor) {
@@ -67,9 +98,7 @@ if (BodyPresenceSensor) {
 
 // Check if heart rate permissions, then start or stop
 if (HeartRateSensor && appbit.permissions.granted("access_heart_rate")) {
-  hrm.addEventListener("reading", () => {
-    hrmData.text = hrm.heartRate;
-  });
+  hrm.addEventListener("reading", changeHRText);
   sensors.push(hrm);
   hrm.start();
 }
@@ -109,7 +138,29 @@ clock.ontick = (evt) => {
 
   // REMOVE FOR TESTING
   //randomDate();
+  //console.log("Background: " + settings.background);
+  //console.log("HR: " + settings.heart_icon_display);
 };
+
+heartDisplay(settings.heart_icon_display);
+
+function heartDisplay(display) {
+  if (display == "Heart Rate") {
+    battery.onchange = null;
+    hrmData.text = hrm.heartRate;
+    hrm.addEventListener("reading", changeHRText);
+  } else if (display == "Battery Life") {
+    hrm.removeEventListener("reading", changeHRText);
+    hrmData.text = battery.chargeLevel;
+    battery.onchange = (charger, evt) => {
+      hrmData.text = battery.chargeLevel;
+    };
+  }
+}
+
+function changeHRText() {
+  hrmData.text = hrm.heartRate;
+}
 
 function setDayText(day) {
   day_of_week.image = `day_text/${days[day]}.png`;
@@ -164,12 +215,12 @@ function resizeTime348x250(hour) {
     hour_num.height = 200;
     hour_num.x = 120;
   } else if (hour >= 1 && hour <= 9) {
-    hour_num.width = 173;
-    hour_num.height = 190;
+    hour_num.width = 165;
+    hour_num.height = 180;
     hour_num.x = 120;
   } else {
-    hour_num.width = 230;
-    hour_num.height = 207;
+    hour_num.width = 220;
+    hour_num.height = 195;
     hour_num.x = 80;
   }
 }
@@ -183,23 +234,6 @@ function resizeTime(hour) {
   }
 }
 
-// Register for the unload event
-appbit.onunload = saveSettings;
-
-function loadSettings() {
-  try {
-    return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
-  } catch (ex) {
-    return {
-      background: "Auto",
-    };
-  }
-}
-
-function saveSettings() {
-  fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
-}
-
 // Apply appropriate theme according to settings
 function applyTheme(background_settings) {
   if (background_settings == "Day") {
@@ -207,7 +241,6 @@ function applyTheme(background_settings) {
   } else if (background_settings == "Night") {
     background.image = "background/night_bg_300x300-contrast.png";
   }
-  settings.background = background_settings;
 }
 
 // tester function

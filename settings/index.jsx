@@ -13,20 +13,15 @@ function settingsComponent(props) {
           settingsKey="background"
           options={[{ name: "Day" }, { name: "Night" }, { name: "Auto" }]}
         />
+
+        <Select
+          label={`Heart Icon Display`}
+          settingsKey="heart_icon_display"
+          options={[{ name: "Heart Rate" }, { name: "Battery Life" }]}
+        />
       </Section>
     </Page>
   );
 }
 
 registerSettingsPage(settingsComponent);
-
-/*
-<Select
-  label={`Time Format`}
-  settingsKey="time_format"
-  options={[
-    {name:"12h"},
-    {name:"24h"},
-  ]}
-/>
-*/
