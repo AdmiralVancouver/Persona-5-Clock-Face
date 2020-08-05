@@ -3,7 +3,7 @@
     <image id="background" href="background/night_bg_300x300-contrast.png"/>
 
     <svg class="heartrate_class">
-      <text id="heartrate_num">---</text>
+      <text id="heartrate_num">----</text>
       <image id="heartrate_icon" href="icons/heart_icon_darker.png"/>
     </svg>
 
