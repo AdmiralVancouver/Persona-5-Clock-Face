@@ -29,5 +29,8 @@
   "scripts": {
     "build": "fitbit-build",
     "debug": "fitbit"
+  },
+  "dependencies": {
+    "lodash": "^4.17.19"
   }
 }
