@@ -18,9 +18,6 @@ A clock face based off of the Persona 5 video game.
 
 https://gallery.fitbit.com/details/41e3f23c-78ad-4e29-a895-02f18b6bab6a
 
-Built for Versa 1, Versa 2, and Versa Lite.
-
-
 # Lessons learned / Final thoughts
 
 This was built for personal use as there did not exist any other Persona themed watches in the Fitbit store. I was able to brush up on some JavaScript, CSS, SVG, and HTML coding. However, coding for Fitbit devices is a bit different as many of the standard JS and CSS features are missing, such as flex-box. Thus, I had to find work arounds to achieve the desired result. Overall, a quick and easy learning experience.
