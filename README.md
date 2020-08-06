@@ -16,6 +16,8 @@ A clock face based off of the Persona 5 video game.
 
 - Can choose between day or night backgrounds, or leave it on auto by default (changes according to time of day)
 
+- Option to display battery life or heart rate next to heart icon
+
 https://gallery.fitbit.com/details/41e3f23c-78ad-4e29-a895-02f18b6bab6a
 
 # Lessons learned / Final thoughts
