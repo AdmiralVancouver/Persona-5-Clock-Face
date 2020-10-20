@@ -225,12 +225,30 @@ function resizeTime348x250(hour) {
   }
 }
 
+function resizeTime336x336(hour) {
+  if (hour == 7) {
+    hour_num.width = 200;
+    hour_num.height = 220;
+    hour_num.x = 105;
+  } else if (hour >= 1 && hour <= 9) {
+    hour_num.width = 196;
+    hour_num.height = 215;
+    hour_num.x = 105;
+  } else {
+    hour_num.width = 250;
+    hour_num.height = 225;
+    hour_num.x = 65;
+  }
+}
+
 // Resize and position appropriate time images
 function resizeTime(hour) {
   if (device.screen.width == 348 && device.screen.height == 250) {
     resizeTime348x250(hour);
   } else if (device.screen.width == 300 && device.screen.height == 300) {
     resizeTime300x300(hour);
+  } else if (device.screen.width == 336 && device.screen.height == 336) {
+    resizeTime336x336(hour);
   }
 }
 
