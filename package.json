@@ -31,6 +31,6 @@
     "debug": "fitbit"
   },
   "dependencies": {
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.21"
   }
 }
