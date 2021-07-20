@@ -8,6 +8,7 @@ import { today } from "user-activity";
 import { preferences } from "user-settings";
 import { me as device } from "device";
 import { battery } from "power";
+import { charging } from "power";
 import * as messaging from "messaging";
 import * as fs from "fs";
 
@@ -22,6 +23,9 @@ const day_num = document.getElementById("day_num");
 const hour_num = document.getElementById("hour_num");
 const minute_num = document.getElementById("minute_num");
 const background = document.getElementById("background");
+const calsData = document.getElementById("cals_num");
+const batteryData = document.getElementById("battery_percent")
+
 
 const sensors = [];
 const days = [
@@ -33,6 +37,37 @@ const days = [
   "friday",
   "saturday",
 ];
+
+//Initialise battery image
+batteryData.href = refresh_myPower();
+
+//Refresh Battery level
+function refresh_myPower() {
+if (battery.chargeLevel>89)
+{
+    return "icons/battery_100.png";
+}
+else if(battery.chargeLevel>79)
+{
+    return "icons/battery_80.png";
+}
+else if(battery.chargeLevel>59)
+{
+    return "icons/battery_60.png";
+}
+else if(battery.chargeLevel>19)
+{
+  return "icons/battery_40.png";
+}
+else{
+  return "icons/battery_20_less.png";
+}
+
+}
+
+battery.onchange = (charger, evt) => {
+ batteryData.href = refresh_myPower();
+}
 
 const hrm = new HeartRateSensor();
 
@@ -46,7 +81,7 @@ function loadSettings() {
   } catch (ex) {
     return {
       background: "Auto",
-      heart_icon_display: "Heart Rate",
+      heart_icon_display: "Heart Rate"
     };
   }
 }
@@ -70,7 +105,7 @@ messaging.peerSocket.onmessage = (evt) => {
           evt.data.newValue
         ).values[0].name;
         heartDisplay(settings.heart_icon_display);
-        break;
+        break;       
     }
   }
 };
@@ -110,12 +145,20 @@ if (appbit.permissions.granted("access_activity")) {
   });
 }
 
+if(appbit.permissions.granted("access_activity")){
+  clock.addEventListener("tick",() => {
+    calsData.text = today.adjusted.calories || 0;
+  });
+}
+
 // Automatically stop all sensors when the screen is off to conserve battery
 display.addEventListener("change", () => {
   display.on
     ? sensors.map((sensor) => sensor.start())
     : sensors.map((sensor) => sensor.stop());
 });
+
+
 
 // Set proper time images, since not using a traditional font
 clock.ontick = (evt) => {
@@ -142,21 +185,23 @@ clock.ontick = (evt) => {
   //console.log("HR: " + settings.heart_icon_display);
 };
 
+
 heartDisplay(settings.heart_icon_display);
 
 function heartDisplay(display) {
   if (display == "Heart Rate") {
-    battery.onchange = null;
     hrmData.text = hrm.heartRate;
     hrm.addEventListener("reading", changeHRText);
-  } else if (display == "Battery Life") {
-    hrm.removeEventListener("reading", changeHRText);
-    hrmData.text = battery.chargeLevel;
-    battery.onchange = (charger, evt) => {
-      hrmData.text = battery.chargeLevel;
-    };
+  } //else if (display == "Battery Life") {
+    //hrm.removeEventListener("reading", changeHRText);
+    //hrmData.text = battery.chargeLevel;
+    //battery.onchange = (charger, evt) => {
+     // hrmData.text = battery.chargeLevel;
+    //};
   }
-}
+
+
+
 
 function changeHRText() {
   hrmData.text = hrm.heartRate;
@@ -242,6 +287,9 @@ function applyTheme(background_settings) {
     background.image = "background/night_bg_300x300-contrast.png";
   }
 }
+
+
+
 
 // tester function
 function randomDate() {

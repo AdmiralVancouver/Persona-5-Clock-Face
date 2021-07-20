@@ -17,8 +17,9 @@ function settingsComponent(props) {
         <Select
           label={`Heart Icon Display`}
           settingsKey="heart_icon_display"
-          options={[{ name: "Heart Rate" }, { name: "Battery Life" }]}
+          options={[{ name: "Heart Rate" }]}
         />
+
       </Section>
     </Page>
   );

@@ -11,14 +11,23 @@
       <text id="steps_num">-----</text>
       <image id="steps_icon" href="icons/steps_icon.png"/>
     </svg>
+    
+    <svg class="cals_class">
+      <text id="cals_num">----</text>
+      <image id="cals_icon" href="icons/cals_burned_icon.png"/>
+    </svg>
 
+     <svg class="battery_class">
+      <image id="battery_percent"/>
+     </svg>
+  
     <svg class="date_class">
       <image id="month_num" width="23%" height="23%"/>
       <image id="day_of_week"/>
       <image id="day_num" width="19%" height="19%"/>
     </svg>
 
-    <g transform="scale(0.58)">
+    <g transform="scale(0.60)">
       <svg class="time_class">
         <image id="hour_num"/>
         <image id="minute_num"/>

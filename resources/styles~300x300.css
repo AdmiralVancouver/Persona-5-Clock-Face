@@ -16,7 +16,7 @@
 
 #steps_icon {
   x: $-38;
-  y: 57;
+  y: 37;
   width: 32;
   height: 55;
 }
@@ -26,7 +26,24 @@
   font-family: Fabrikat-Bold;
   font-size: 34;
   x: 295;
-  y: 102;
+  y: 92;
+  text-anchor: end;
+}
+
+#cals_icon {
+  x: $-50;
+  y: 100;
+  width: 50;
+  height: 55;
+  
+}
+
+#cals_num {
+  fill: #ff9e39;
+  font-family: Fabrikat-Bold;
+  font-size: 34;
+  x: 295;
+  y: 145;
   text-anchor: end;
 }
 
@@ -56,4 +73,11 @@
   x: $;
   width: 60%;
   height: 60%;
+}
+
+#battery_percent{
+  y: 110;
+  x:$;
+  width: 50%;
+  height: 20%;
 }
